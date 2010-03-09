@@ -9,7 +9,13 @@
   
   <body>
 
-Your Adorable URL is http://www.adorableurl.com/<%= request.getAttribute("url-code") %>
+	<p>
+	Your Adorable URL is <a href="http://www.adorableurl.com/<%= request.getAttribute("url-code") %>">http://www.adorableurl.com/<%= request.getAttribute("url-code") %></a>
+	</p>
+	
+	<div id="footer">
+	&copy; Seth Ladd, 2010
+	</div>
 
 	<script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
