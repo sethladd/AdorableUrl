@@ -21,21 +21,14 @@ public class AdorableURLServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		System.out.println(req.getRequestURI());
-		if (req.getRequestURI().equals("/")) {
-			getServletConfig().getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
-			return;
-		} else if (req.getRequestURI().equals("/favicon.ico")) {
-			resp.setStatus(404);
-			return;
-		}
-		String adorable = req.getRequestURI().substring(1);
-		Long id = AdorableConverter.decode(adorable);
+		String adorable = (String) req.getAttribute("javax.servlet.error.request_uri");
+		Long id = AdorableConverter.decode(adorable.substring(1));
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
 			Url url = pm.getObjectById(Url.class, id);
-			System.out.println("Redirecting to: " + url.getUrl());
 			resp.sendRedirect(url.getUrl().toString());
+		} catch (javax.jdo.JDOObjectNotFoundException e) {
+			resp.setStatus(404);	
 		} finally {
 			pm.close();
 		}
