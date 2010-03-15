@@ -33,7 +33,7 @@ def test(arrays)
     end
   end
   puts "Total: #{total}, Count: #{total == results.size}, Uniq: #{results.uniq.size == total}, Decoded All: #{decodes}"
-  puts results.inspect
+#  puts results.inspect
 end
 
 #a = [('0'..'2').to_a] * 2
@@ -48,7 +48,6 @@ test [%w[1],%w[2 3]]
 test [%w[1 2],%w[3]]
 test [%w[1 2],%w[3 4 5]]
 test [%w[1 2],%w[3 4], %w[5 6]]
-##test [[1,2,3,4],[6,7],[8,9,10]]
-#test [[1,2,3],[4,5]]
-#test [[1,2,3,4,5,6],[7,8,9,10,11],[12]]
-#test [(0..99).to_a, [7,8,9], (0..99).to_a, [10,11,12]]
+test [%w[1 2 3 4],%w[6 7],%w[8 9 10]]
+test [%w[1 2 3],%w[4 5]]
+test [%w[1 2 3 4 5 6], %w[7 8 9 10 11], %w[12]]
