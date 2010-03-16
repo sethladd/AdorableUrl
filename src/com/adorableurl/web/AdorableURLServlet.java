@@ -43,15 +43,27 @@ public class AdorableURLServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String u = req.getParameter("u");
+		String urlParam = req.getParameter("u");
+		
+		if (urlParam == null || urlParam.trim().equals("")) {
+			resp.sendRedirect("/");
+			return;
+		}
+		
+		urlParam = urlParam.trim();
+		
+		if (!urlParam.startsWith("http://") && !urlParam.startsWith("https://")) {
+			urlParam = "http://" + urlParam;
+		}
+		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = null;
 		try {
 			query = pm.newQuery(Url.class, "url == :u");
-			List<Url> results = (List<Url>) query.execute(new Link(u));
+			List<Url> results = (List<Url>) query.execute(new Link(urlParam));
 			Url url = null;
 			if (results.isEmpty()) {
-				url = new Url(u);
+				url = new Url(urlParam);
 				pm.makePersistent(url);
 			} else {
 				url = results.get(0);
