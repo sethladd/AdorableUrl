@@ -22,6 +22,11 @@ public class AdorableURLServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String adorable = (String) req.getAttribute("javax.servlet.error.request_uri");
+		if (adorable == null) {
+			resp.setStatus(404);
+			return;
+		}
+		
 		Long id = AdorableConverter.decode(adorable.substring(1));
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {

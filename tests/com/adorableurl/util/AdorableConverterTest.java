@@ -6,31 +6,30 @@ import junit.framework.TestCase;
 
 public class AdorableConverterTest extends TestCase {
 	
+	public void testEncode0() {
+		assertEquals("2-fluffy-bunnies-cuddle-2-fluffy-bunnies", AdorableConverter.encode(0));
+	}
+	
 	public void testEncode1() {
-		assertEquals("pink", AdorableConverter.encode(1));
+		assertEquals("3-fluffy-bunnies-cuddle-2-fluffy-bunnies", AdorableConverter.encode(1));
 	}
 	
-	public void testEncode12() {
-		assertEquals("cat", AdorableConverter.encode(12));
+	public void testEncodeLast() {
+		assertEquals("101-adorable-unicorns-play_with-101-adorable-unicorns",
+				AdorableConverter.encode(AdorableConverter.getNumCombinations()-1));
 	}
 	
-	public void testEncode123456() {
-		assertEquals("puppies-little-cupcakes-cat", AdorableConverter.encode(123456));
-	}
-	
-	public void testEncode12345678987654321() {
-		assertEquals("rainbows-baby-pandas-adorable-hugs-kissing-p9i29", AdorableConverter.encode(12345678987654321L));
+	public void testDecode0() {
+		assertEquals(0, AdorableConverter.decode("2-fluffy-bunnies-cuddle-2-fluffy-bunnies"));
 	}
 	
 	public void testDecode1() {
-		assertEquals(1, AdorableConverter.decode("pink"));
+		assertEquals(1, AdorableConverter.decode("3-fluffy-bunnies-cuddle-2-fluffy-bunnies"));
 	}
 	
-	public void testDecode12() {
-		assertEquals(12, AdorableConverter.decode("cat"));
+	public void testDecodeLast() {
+		assertEquals(AdorableConverter.getNumCombinations()-1,
+				AdorableConverter.decode("101-adorable-unicorns-play_with-101-adorable-unicorns"));
 	}
 	
-	public void testDecode12345678987654321() {
-		assertEquals(12345678987654321L, AdorableConverter.decode("rainbows-baby-pandas-adorable-hugs-kissing-p9i29"));
-	}
 }

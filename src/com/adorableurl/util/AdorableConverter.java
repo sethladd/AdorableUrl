@@ -1,84 +1,84 @@
 package com.adorableurl.util;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+
+@SuppressWarnings("unchecked")
 public final class AdorableConverter {
-
-	public static final String[] TERMS = {
-		"kittens",
-		"pink",
-		"puppies",
-		"rainbows",
-		"flowers",
-		"cute",
-		"adorable",
-		"babies",
-		"teddybears",
-		"cupcakes",
-		"ribbons",
-		"lilac",
-		"cat",
-		"baby",
-		"hugs",
-		"kisses",
-		"nuzzle",
-		"love",
-		"affection",
-		"pets",
-		"pandas",
-		"napping",
-		"kissing",
-		"little",
-		"tiny",
-		"cuddly",
-		"sweet",
-		"unicorns",
-		"darling",
-		"delightful",
-		"cats",
-		"dogs",
-		"kitten",
-		"puppy",
-		"daises",
-		"roses"
-	};
 	
-	public static final Map<String, String> CODE_TO_TERM = new HashMap<String, String>();
-	public static final Map<String, String> TERM_TO_CODE = new HashMap<String, String>();
-	
+	public static final List<String> NUMBERS = new ArrayList<String>(100);
 	static {
-		for (int i = 0; i < 36; i++) {
-			CODE_TO_TERM.put(Long.toString(i, 36), TERMS[i]);
-			TERM_TO_CODE.put(TERMS[i], Long.toString(i, 36));
+		for (int i = 0; i < 100; i++) {
+			NUMBERS.add(String.valueOf(i+2));
 		}
 	}
 	
+	public static final List<String> ADJECTIVES = Arrays.asList(
+		"fluffy",
+		"pink",
+		"cuddly",
+		"adorable"
+	);
+	
+	public static final List<String> NOUNS = Arrays.asList(
+		"bunnies",
+		"kitties",
+		"puppies",
+		"unicorns"
+	);
+	
+	public static final List<String> VERBS = Arrays.asList(
+		"cuddle",
+		"hug",
+		"kiss",
+		"smooch",
+		"nap_with",
+		"play_with"
+	);
+	
+	public static final List<List<String>> TERMS = Arrays.asList(
+			NUMBERS,
+			ADJECTIVES,
+			NOUNS,
+			VERBS,
+			NUMBERS,
+			ADJECTIVES,
+			NOUNS
+	);
+	
 	public final static String encode(long number) {
-		String base36 = Long.toString(number, 36);
-		int conversionLength = Math.min(6, base36.length());
-		StringBuilder sb = new StringBuilder();
-		int i = 0;
-		while (i < conversionLength) {
-			sb.append(CODE_TO_TERM.get(String.valueOf(base36.charAt(i))));
-			if (i < base36.length()-1) sb.append("-");
-			i++;
+		final StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < TERMS.size(); i++) {
+			final List terms = TERMS.get(i);
+			sb.append(terms.get((int) (number % terms.size())));
+			number /= terms.size();
+			
+			if (i < TERMS.size()-1) {
+				sb.append("-");
+			}
 		}
-		sb.append(base36.substring(i));
 		return sb.toString();
 	}
 	
-	public final static long decode(String code) {
-		String[] parts = code.split("-");
-		StringBuilder sb = new StringBuilder();
-		int length = parts.length;
-		for (int i = 0; i < length; i++) {
-			if (i < 6) {
-				sb.append(TERM_TO_CODE.get(parts[i]));
-			} else {
-				sb.append(parts[i]);
-			}
+	public final static long decode(String slug) {
+		final String[] parts = slug.split("-");
+		int multiplier = 1;
+		long result = 0;
+		for (int i = 0; i < parts.length; i++) {
+			result += TERMS.get(i).indexOf(parts[i]) * multiplier;
+			multiplier *= TERMS.get(i).size();
 		}
-		return Long.parseLong(sb.toString(), 36);
+		return result;
 	}
+	
+	public final static long getNumCombinations() {
+		long answers = 1;
+		for (int i = 0; i < TERMS.size(); i++) {
+			answers *= TERMS.get(i).size();
+		}
+		return answers;
+	}
+
 }
