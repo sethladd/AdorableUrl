@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 public class AdorableConverterTest extends TestCase {
 	
 	public void testEncode0() {
-		assertEquals("2-fluffy-bunnies-cuddle-2-fluffy-bunnies", AdorableConverter.encode(0));
+		assertEquals("2-fluffy-bunnies-cuddle-101-adorable-unicorns", AdorableConverter.encode(0));
 	}
 	
 	public void testEncode1() {

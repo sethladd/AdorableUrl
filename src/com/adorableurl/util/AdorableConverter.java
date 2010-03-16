@@ -2,6 +2,7 @@ package com.adorableurl.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -15,6 +16,11 @@ public final class AdorableConverter {
 		}
 	}
 	
+	public static final List<String> NUMBERS_REVERSE = new ArrayList<String>(NUMBERS);
+	static {
+		Collections.reverse(NUMBERS_REVERSE);
+	}
+	
 	public static final List<String> ADJECTIVES = Arrays.asList(
 		"fluffy",
 		"pink",
@@ -22,12 +28,22 @@ public final class AdorableConverter {
 		"adorable"
 	);
 	
+	public static final List<String> ADJECTIVES_REVERSE = new ArrayList<String>(ADJECTIVES);
+	static {
+		Collections.reverse(ADJECTIVES_REVERSE);
+	}
+	
 	public static final List<String> NOUNS = Arrays.asList(
 		"bunnies",
 		"kitties",
 		"puppies",
 		"unicorns"
 	);
+	
+	public static final List<String> NOUNS_REVERSE = new ArrayList<String>(NOUNS);
+	static {
+		Collections.reverse(NOUNS_REVERSE);
+	}
 	
 	public static final List<String> VERBS = Arrays.asList(
 		"cuddle",
@@ -39,13 +55,13 @@ public final class AdorableConverter {
 	);
 	
 	public static final List<List<String>> TERMS = Arrays.asList(
-			NUMBERS,
-			ADJECTIVES,
-			NOUNS,
-			VERBS,
-			NUMBERS,
-			ADJECTIVES,
-			NOUNS
+		NUMBERS,
+		ADJECTIVES,
+		NOUNS,
+		VERBS,
+		NUMBERS_REVERSE,
+		ADJECTIVES_REVERSE,
+		NOUNS_REVERSE
 	);
 	
 	public final static String encode(long number) {

@@ -57,7 +57,7 @@ public class AdorableURLServlet extends HttpServlet {
 				url = results.get(0);
 			}
 			req.setAttribute("url-code", AdorableConverter.encode(url.getId()));
-			getServletConfig().getServletContext().getRequestDispatcher("/created.jsp").forward(req,resp);
+			getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/jsp/created.jsp").forward(req,resp);
 		} finally {
 			if (query != null) query.closeAll();
 			pm.close();
