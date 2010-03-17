@@ -8,9 +8,17 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>AdorableURL</servlet-name>
 		<servlet-class>com.adorableurl.web.AdorableURLServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>DeleteAll</servlet-name>
+		<servlet-class>com.adorableurl.web.DeleteAllUrlsServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>AdorableURL</servlet-name>
 		<url-pattern>/adorable</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteAll</servlet-name>
+		<url-pattern>/delete/all</url-pattern>
 	</servlet-mapping>
 	<error-page>
 		<error-code>404</error-code>
@@ -19,4 +27,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	<security-constraint>
+        <web-resource-collection>
+            <url-pattern>/delete/all</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
 </web-app>
